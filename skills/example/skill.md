@@ -70,10 +70,10 @@ Only flag SOLID violations when they introduce real risk — not theoretical pur
 
 ### 4. Categorize Findings by Severity
 
-- **P0 (Critical)**: Security vulnerabilities, data loss risk, production-breaking bugs — **must block merge**
-- **P1 (High)**: Logic errors, SOLID violations with real impact, performance regressions
-- **P2 (Medium)**: Code smells, missing coverage, maintainability concerns — fix now or create follow-up
-- **P3 (Low)**: Style, naming, minor inconsistencies — optional, nice to fix
+- 🔴 **P0 (Critical)**: Security vulnerabilities, data loss risk, production-breaking bugs — **must block merge**
+- 🟠 **P1 (High)**: Logic errors, SOLID violations with real impact, performance regressions
+- 🟡 **P2 (Medium)**: Code smells, missing coverage, maintainability concerns — fix now or create follow-up
+- 🟢 **P3 (Low)**: Style, naming, minor inconsistencies — optional, nice to fix
 
 ### 5. Submit Review with Inline Comments
 
@@ -87,7 +87,7 @@ cat <<'JSONEOF' | gh api repos/{{GITHUB_REPO}}/pulls/<PR_NUMBER>/reviews --metho
     {
       "path": "path/to/file",
       "line": <LINE_NUMBER_IN_NEW_FILE>,
-      "body": "**[P0]** Description of the issue."
+      "body": "🔴 **[P0]** Description of the issue."
     }
   ]
 }
@@ -102,7 +102,7 @@ JSONEOF
 ## Rules
 
 1. **ONLY leave comments for issues/bugs/concerns.** No positive or praise comments. No noise.
-2. **Every comment MUST have a severity prefix**: `**[P0]**`, `**[P1]**`, `**[P2]**`, or `**[P3]**`.
+2. **Every comment MUST have a severity prefix**: `🔴 **[P0]**`, `🟠 **[P1]**`, `🟡 **[P2]**`, or `🟢 **[P3]**`.
 3. **Comments must be on diff lines only.** The `line` field refers to the line number in the NEW version of the file.
 4. **Be concise and actionable.** State the problem and suggest a fix.
 5. **Do NOT comment on deleted files.**
