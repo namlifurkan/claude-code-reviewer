@@ -1,0 +1,12 @@
+{
+  "repos": [
+    {
+      "name": "api",
+      "github": "your-org/your-api-repo",
+      "skill": "example",
+      "base_branches": ["main", "dev"]
+    }
+  ],
+  "review_language": "en",
+  "cron_interval_minutes": 10
+}
