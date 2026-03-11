@@ -4,9 +4,10 @@
       "name": "api",
       "github": "your-org/your-api-repo",
       "skill": "example",
-      "base_branches": ["main", "dev"]
+      "base_branches": ["main", "dev"],
+      "language": "en"
     }
   ],
-  "review_language": "en",
+  "default_language": "en",
   "cron_interval_minutes": 10
 }

@@ -105,8 +105,9 @@ JSONEOF
 2. **Every comment MUST have a severity prefix**: `🔴 **[P0]**`, `🟠 **[P1]**`, `🟡 **[P2]**`, or `🟢 **[P3]**`.
 3. **Comments must be on diff lines only.** The `line` field refers to the line number in the NEW version of the file.
 4. **Be concise and actionable.** State the problem and suggest a fix.
-5. **Do NOT comment on deleted files.**
-6. **Max 15 comments per review.** Prioritize by severity, mention omitted count in review body.
+5. **Write all review comments in {{REVIEW_LANGUAGE}}.**
+6. **Do NOT comment on deleted files.**
+7. **Max 15 comments per review.** Prioritize by severity, mention omitted count in review body.
 
 ## Project Context
 

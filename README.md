@@ -80,10 +80,11 @@ You also need:
       "name": "frontend",
       "github": "your-org/your-frontend-repo",
       "skill": "example-react",
-      "base_branches": ["main"]
+      "base_branches": ["main"],
+      "language": "tr"
     }
   ],
-  "review_language": "en",
+  "default_language": "en",
   "cron_interval_minutes": 10
 }
 ```
@@ -94,6 +95,37 @@ You also need:
 | `repos[].github` | Full GitHub repo path (`owner/repo`) |
 | `repos[].skill` | Name of the skill folder in `skills/` to use for this repo |
 | `repos[].base_branches` | Target branches to watch for PRs (e.g., `main`, `dev`) |
+| `repos[].language` | Review comment language for this repo (overrides `default_language`) |
+| `default_language` | Default language for all repos (default: `en`) |
+
+### Review Language
+
+Review comments can be written in any language. Set per-repo or globally:
+
+```json
+{
+  "default_language": "en",
+  "repos": [
+    { "name": "api", "language": "tr", "..." : "..." },
+    { "name": "frontend", "..." : "..." }
+  ]
+}
+```
+
+- `api` reviews will be in **Turkish** (repo-level override)
+- `frontend` reviews will be in **English** (falls back to `default_language`)
+
+**Supported language codes:**
+
+| Code | Language | Code | Language | Code | Language |
+|------|----------|------|----------|------|----------|
+| `en` | English | `fr` | French | `ja` | Japanese |
+| `tr` | Turkish | `es` | Spanish | `ko` | Korean |
+| `de` | German | `pt` | Portuguese | `zh` | Chinese |
+| `it` | Italian | `nl` | Dutch | `ru` | Russian |
+| `pl` | Polish | `hi` | Hindi | `ar` | Arabic |
+
+Any other value is passed as-is (e.g., `"language": "Brazilian Portuguese"`).
 
 ### Skills
 
@@ -123,7 +155,9 @@ Then reference it in `config.json`:
 { "name": "my-project", "github": "org/repo", "skill": "my-project", ... }
 ```
 
-The `{{GITHUB_REPO}}` placeholder in skill files is automatically replaced with the repo path from config.
+Placeholders in skill files are automatically replaced:
+- `{{GITHUB_REPO}}` → repo path from config (e.g., `your-org/your-repo`)
+- `{{REVIEW_LANGUAGE}}` → language name from config (e.g., `Turkish`, `English`)
 
 ## Usage
 

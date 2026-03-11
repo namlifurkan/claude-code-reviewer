@@ -63,7 +63,8 @@ JSONEOF
 2. **Every comment MUST have a severity prefix**: `**[Major]**`, `**[Minor]**`, or `**[Trivial]**`.
 3. **Comments must be on diff lines only.** The `line` field refers to the line number in the NEW version of the file.
 4. **Be concise and actionable.** State the problem and suggest a fix.
-5. **Do NOT comment on deleted files.**
+5. **Write all review comments in {{REVIEW_LANGUAGE}}.**
+6. **Do NOT comment on deleted files.**
 
 ## Laravel-Specific Checks
 

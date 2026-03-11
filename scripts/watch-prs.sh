@@ -15,6 +15,29 @@ log() {
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" >> "$LOG_FILE"
 }
 
+# Map language code to full name
+resolve_language() {
+  local code="$1"
+  case "$code" in
+    tr) echo "Turkish" ;;
+    en) echo "English" ;;
+    de) echo "German" ;;
+    fr) echo "French" ;;
+    es) echo "Spanish" ;;
+    pt) echo "Portuguese" ;;
+    ja) echo "Japanese" ;;
+    ko) echo "Korean" ;;
+    zh) echo "Chinese" ;;
+    ru) echo "Russian" ;;
+    ar) echo "Arabic" ;;
+    it) echo "Italian" ;;
+    nl) echo "Dutch" ;;
+    pl) echo "Polish" ;;
+    hi) echo "Hindi" ;;
+    *)  echo "$code" ;;
+  esac
+}
+
 mkdir -p "$STATE_DIR"
 
 if [ ! -f "$CONFIG_FILE" ]; then
@@ -22,7 +45,7 @@ if [ ! -f "$CONFIG_FILE" ]; then
   exit 1
 fi
 
-# Iterate over each repo in config
+DEFAULT_LANG=$(jq -r '.default_language // "en"' "$CONFIG_FILE")
 REPO_COUNT=$(jq '.repos | length' "$CONFIG_FILE")
 
 for i in $(seq 0 $(( REPO_COUNT - 1 ))); do
@@ -31,6 +54,11 @@ for i in $(seq 0 $(( REPO_COUNT - 1 ))); do
   SKILL_NAME=$(jq -r ".repos[$i].skill" "$CONFIG_FILE")
   SKILL_FILE="${ROOT_DIR}/skills/${SKILL_NAME}/skill.md"
   STATE_FILE="${STATE_DIR}/${REPO_NAME}.json"
+
+  # Language: repo-level > global default
+  REPO_LANG=$(jq -r ".repos[$i].language // empty" "$CONFIG_FILE")
+  LANG_CODE="${REPO_LANG:-$DEFAULT_LANG}"
+  LANG_NAME=$(resolve_language "$LANG_CODE")
 
   # Read base branches
   BASE_BRANCHES=$(jq -r ".repos[$i].base_branches[]" "$CONFIG_FILE" 2>/dev/null || echo "main")
@@ -60,8 +88,8 @@ for i in $(seq 0 $(( REPO_COUNT - 1 ))); do
     continue
   fi
 
-  # Replace placeholder in skill content
-  SKILL_CONTENT=$(sed "s|{{GITHUB_REPO}}|${GITHUB_REPO}|g" "$SKILL_FILE")
+  # Replace placeholders in skill content
+  SKILL_CONTENT=$(sed -e "s|{{GITHUB_REPO}}|${GITHUB_REPO}|g" -e "s|{{REVIEW_LANGUAGE}}|${LANG_NAME}|g" "$SKILL_FILE")
 
   while IFS=' ' read -r pr_number commit_sha branch_name; do
     reviewed_sha=$(jq -r --arg pr "$pr_number" '.[$pr] // ""' "$STATE_FILE")
@@ -70,7 +98,7 @@ for i in $(seq 0 $(( REPO_COUNT - 1 ))); do
       continue
     fi
 
-    log "[${GITHUB_REPO}] New/updated PR #${pr_number} (${branch_name}) - reviewing..."
+    log "[${GITHUB_REPO}] New/updated PR #${pr_number} (${branch_name}) - reviewing in ${LANG_NAME}..."
 
     if claude -p "${SKILL_CONTENT}
 

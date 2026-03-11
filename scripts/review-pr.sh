@@ -33,15 +33,41 @@ GITHUB_REPO=$(echo "$REPO_CONFIG" | jq -r '.github')
 SKILL_NAME=$(echo "$REPO_CONFIG" | jq -r '.skill')
 SKILL_FILE="${ROOT_DIR}/skills/${SKILL_NAME}/skill.md"
 
+# Language: repo-level override > global default > "en"
+REVIEW_LANG=$(echo "$REPO_CONFIG" | jq -r '.language // empty')
+if [ -z "$REVIEW_LANG" ]; then
+  REVIEW_LANG=$(jq -r '.default_language // "en"' "$CONFIG_FILE")
+fi
+
+# Map language code to full name
+case "$REVIEW_LANG" in
+  tr) LANG_NAME="Turkish" ;;
+  en) LANG_NAME="English" ;;
+  de) LANG_NAME="German" ;;
+  fr) LANG_NAME="French" ;;
+  es) LANG_NAME="Spanish" ;;
+  pt) LANG_NAME="Portuguese" ;;
+  ja) LANG_NAME="Japanese" ;;
+  ko) LANG_NAME="Korean" ;;
+  zh) LANG_NAME="Chinese" ;;
+  ru) LANG_NAME="Russian" ;;
+  ar) LANG_NAME="Arabic" ;;
+  it) LANG_NAME="Italian" ;;
+  nl) LANG_NAME="Dutch" ;;
+  pl) LANG_NAME="Polish" ;;
+  hi) LANG_NAME="Hindi" ;;
+  *)  LANG_NAME="$REVIEW_LANG" ;;
+esac
+
 if [ ! -f "$SKILL_FILE" ]; then
   echo "ERROR: Skill file not found: ${SKILL_FILE}"
   exit 1
 fi
 
-# Replace {{GITHUB_REPO}} placeholder in skill
-SKILL_CONTENT=$(sed "s|{{GITHUB_REPO}}|${GITHUB_REPO}|g" "$SKILL_FILE")
+# Replace placeholders in skill
+SKILL_CONTENT=$(sed -e "s|{{GITHUB_REPO}}|${GITHUB_REPO}|g" -e "s|{{REVIEW_LANGUAGE}}|${LANG_NAME}|g" "$SKILL_FILE")
 
-echo "Reviewing PR #${PR_NUMBER} on ${GITHUB_REPO}..."
+echo "Reviewing PR #${PR_NUMBER} on ${GITHUB_REPO} (${LANG_NAME})..."
 
 claude -p "${SKILL_CONTENT}
 
