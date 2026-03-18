@@ -107,7 +107,7 @@ JSONEOF
 4. **Be concise and actionable.** State the problem and suggest a fix.
 5. **Write all review comments in {{REVIEW_LANGUAGE}}.**
 6. **Do NOT comment on deleted files.**
-7. **Max 15 comments per review.** Prioritize by severity, mention omitted count in review body.
+7. **Respect the comment limit and minimum severity from the Noise Control section below** (injected at runtime from config). Prioritize by severity, mention omitted count in review body.
 
 ## Project Context
 

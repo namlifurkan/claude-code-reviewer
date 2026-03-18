@@ -5,9 +5,30 @@
       "github": "your-org/your-api-repo",
       "skill": "example",
       "base_branches": ["main", "dev"],
-      "language": "en"
+      "language": "en",
+      "context_files": [],
+      "explore_repo_structure": true
     }
   ],
   "default_language": "en",
-  "cron_interval_minutes": 10
+  "cron_interval_minutes": 10,
+  "max_comments": 7,
+  "min_severity": "P1",
+  "exclude_patterns": [
+    ".env*",
+    "*.pem",
+    "*.key",
+    "*.p12",
+    "*.pfx",
+    "*.jks",
+    "*.credential*",
+    "*secret*",
+    "*.lock",
+    "package-lock.json",
+    "yarn.lock",
+    "composer.lock",
+    "pnpm-lock.yaml",
+    "Pipfile.lock",
+    "poetry.lock"
+  ]
 }
