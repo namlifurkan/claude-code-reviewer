@@ -1,0 +1,27 @@
+name: Feature request
+description: Suggest something this should do
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This tool reads a diff, asks Claude Code about it, and posts inline comments. Requests
+        that keep it that size are the ones most likely to happen.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is the problem
+      description: Describe the situation you are in, not the feature you want. It usually leads somewhere better.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What you had in mind
+      description: Optional. A rough shape is fine.
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: This does not require the project to host anything, run a server, or store user data

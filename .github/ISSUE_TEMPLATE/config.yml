@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security issue
+    url: https://github.com/namlifurkan/claude-code-reviewer/blob/main/SECURITY.md
+    about: Do not file publicly. See SECURITY.md for how to report it.
+  - name: Claude Code documentation
+    url: https://docs.anthropic.com/en/docs/claude-code
+    about: Questions about Claude Code itself belong upstream.

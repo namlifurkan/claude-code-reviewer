@@ -1,0 +1,52 @@
+name: Bug report
+description: Something does not work
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please do not paste diffs, comments or logs from a private repository. Redact anything
+        you would not put in a public issue.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you ran, what you expected, what you got instead.
+      placeholder: |
+        Ran: ./scripts/review-pr.sh api 42
+        Expected: inline comments on the PR
+        Got: exited 1 with no output
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant output
+      description: Output from the script or the log file. Redact repo names and tokens.
+      render: shell
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - macOS
+        - Linux
+        - Windows (WSL)
+        - Windows (Git Bash)
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: Output of `claude --version`, `gh --version`, `jq --version`, `bash --version`.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before filing
+      options:
+        - label: I ran `./setup.sh` and it completed without errors
+        - label: "`gh auth status` shows me logged in with access to the repo"
+          required: false

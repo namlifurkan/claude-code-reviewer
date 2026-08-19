@@ -1,8 +1,15 @@
 # Claude Code PR Reviewer
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Shell](https://img.shields.io/badge/shell-bash-lightgrey.svg)](#prerequisites)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+
 Automated pull request reviewer powered by [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Analyzes PR diffs and posts inline comments directly on GitHub with severity-based categorization.
 
-Uses your **Claude Code subscription** — no API key needed.
+Uses your **Claude Code subscription**, so there is no API key and no per-review cost.
+
+> Agents write code faster than anyone reads it. This is one attempt at closing that gap on the
+> way into a repository rather than after something has shipped.
 
 ## How It Works
 
@@ -400,6 +407,15 @@ This prevents "reinventing the wheel" comments and helps Claude catch:
 - Duplicate implementations of existing utilities
 - Pattern deviations from established conventions
 - Missed opportunities to reuse existing code
+
+## Contributing
+
+Issues and pull requests are welcome. [CONTRIBUTING.md](CONTRIBUTING.md) covers the shell
+conventions (macOS ships BSD tools, so no GNU-only flags) and what the project is deliberately
+not trying to become.
+
+Found something exploitable? [SECURITY.md](SECURITY.md), not a public issue. That file is also
+worth reading before you run this, since it explains exactly what the tool can see.
 
 ## License
 
